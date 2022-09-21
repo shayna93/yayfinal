@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SERVICES } from '../model/services'
 import { List, Image, Container, Accordion, Header, Statistic, Grid, Segment, Icon } from 'semantic-ui-react'
 import SalonMenuItem from './SalonMenuItem'
@@ -6,8 +6,8 @@ import '../App.css';
 
 
 
-function SalonMenu() {
-    const entries = [
+function Cart() {
+    const entries = [//[entries, setEntries] = useState(initialEntries)
         
         { id:1, title:'Manicure'},
         { id:2, title: 'Pedicure'},
@@ -100,4 +100,15 @@ function SalonMenu() {
       );
     }
 
-export default SalonMenu
+export default Cart;
+
+var initialEntries = [
+    {
+        description: "Shellac Manicure",
+        value: "$100.00"
+    },
+    {
+        description: "Shellac Pedicure",
+        value: "$60.00"
+    }
+]
