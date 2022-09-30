@@ -50,46 +50,6 @@ function SalonMenu() {
   return (
         <Container>
           <Header as='h1'>Menu</Header>
-          <Statistic size='small'>
-            <Statistic.Label>This Takes Salon Name</Statistic.Label>
-            <Statistic.Value>Manicure</Statistic.Value>
-          </Statistic>
-          <Segment textAlign= 'center'>
-            <Grid columns={2} divided>
-              <Grid.Row>
-                <Grid.Column>
-                <Statistic size='tiny' color='green'>
-                  <Statistic.Label style={{textAlign:'left'}}>Service</Statistic.Label>
-                  <Statistic.Value>Shellac</Statistic.Value>
-                </Statistic>
-                </Grid.Column>
-                <Grid.Column>
-                <Statistic size='tiny' color='red'>
-                  <Statistic.Label style={{textAlign:'left'}}>Price</Statistic.Label>
-                  <Statistic.Value>60.49</Statistic.Value>
-                </Statistic>
-                </Grid.Column>
-
-              </Grid.Row>
-            </Grid>
-          </Segment>
-
-          <Header as='h3'>History</Header>
-          <Segment color='red'>
-            <Grid columns={3} textAlign='right'>
-              <Grid.Row>
-                <Grid.Column width={10} textAlign='left'>Something</Grid.Column>
-                <Accordion defaultActiveIndex={0} panels={rootPanels} styled/>
-
-                <Grid.Column width={3} textAlign='right'>$10.00</Grid.Column>
-                <Grid.Column>
-                  <Icon name='edit' bordered/>
-                  <Icon name='trash' bordered/>
-                </Grid.Column>
-              </Grid.Row>
-              </Grid>    
-
-        </Segment>
           {entries.map ((entry) => (
             <SalonMenuItem
               key={entry.id}

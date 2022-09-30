@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { SERVICES } from '../model/services'
-import { List, Image, Container, Accordion, Header, Statistic, Grid, Segment, Icon } from 'semantic-ui-react'
+import { List, Image, Container, Accordion, Header, Statistic, Grid, Segment, Icon, Button } from 'semantic-ui-react'
 import SalonMenuItem from './SalonMenuItem'
 import '../App.css';
 
 
 
-function Cart() {
+
+  function Cart() {
     const entries = [//[entries, setEntries] = useState(initialEntries)
         
         { id:1, title:'Manicure'},
@@ -112,3 +113,4 @@ var initialEntries = [
         value: "$60.00"
     }
 ]
+

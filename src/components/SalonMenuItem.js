@@ -10,6 +10,7 @@ function SalonMenuItem({title}) {
             <Grid.Column width={10} textAlign="left">
               {title}
             </Grid.Column>
+            <Icon name = 'cart' bordered/>
           </Grid.Row>
         </Grid>
       </Segment>
