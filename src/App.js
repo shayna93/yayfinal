@@ -13,7 +13,7 @@ import NotFound from './components/NotFound';
 
 function App() {
   return (
-    <div classname="App">
+    <div className="App">
       <BrowserRouter>
       <NavBar/>
       <Routes>
