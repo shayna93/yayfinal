@@ -69,3 +69,10 @@
   color: rgb(68,68,68);
   min-height: 88vh;
 }
+
+
+/* SalonMenu */
+.menu-item-container{
+  padding: 2rem 4rem;
+  
+}
