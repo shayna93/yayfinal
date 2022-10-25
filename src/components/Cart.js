@@ -1,116 +1,83 @@
-import React, { useState } from 'react'
-import { SERVICES } from '../model/services'
-import { List, Image, Container, Accordion, Header, Statistic, Grid, Segment, Icon, Button } from 'semantic-ui-react'
-import SalonMenuItem from './SalonMenuItem'
+import { useSelector } from 'react-redux';
+
+import { Link } from 'react-router-dom';
 import '../App.css';
 
 
 
 
-  function Cart() {
-    const entries = [//[entries, setEntries] = useState(initialEntries)
-        
-        { id:1, title:'Manicure'},
-        { id:2, title: 'Pedicure'},
-        {id: 3, title: 'Hair'},
-    ]
-
-    const level1Panels = [
-        { key: 'panel-1a', title: 'Level 1A', content: 'Level 1A Contents' },
-        { key: 'panel-ba', title: 'Level 1B', content: 'Level 1B Contents' },
-      ]
-      
-      const Level1Content = (
-        <div>
-          Welcome to level 1
-          <Accordion.Accordion panels={level1Panels} />
-        </div>
-      )
-      
-      const level2Panels = [
-        { key: 'panel-2a', title: 'Level 2A', content: 'Level 2A Contents' },
-        { key: 'panel-2b', title: 'Level 2B', content: 'Level 2B Contents' },
-      ]
-      
-      const Level2Content = (
-        <div>
-          Welcome to level 2
-          <Accordion.Accordion panels={level2Panels} />
-        </div>
-      )
-      
-
-    const rootPanels = [
-        { key: 'panel-1', title: 'Manicure' , content: { content: Level1Content } },
-        { key: 'panel-2', title: 'Pedicure', content: { content: Level2Content } },
-      ]
-      
-    //const service_groups = groupBy(SERVICES, 'service_category');
-
-
+function Cart() {
+  const cart = useSelector((state) => state.cart);
   return (
-        <Container>
-          <Header as='h1'>Menu</Header>
-          <Statistic size='small'>
-            <Statistic.Label>This Takes Salon Name</Statistic.Label>
-            <Statistic.Value>Manicure</Statistic.Value>
-          </Statistic>
-          <Segment textAlign= 'center'>
-            <Grid columns={2} divided>
-              <Grid.Row>
-                <Grid.Column>
-                <Statistic size='tiny' color='green'>
-                  <Statistic.Label style={{textAlign:'left'}}>Service</Statistic.Label>
-                  <Statistic.Value>Shellac</Statistic.Value>
-                </Statistic>
-                </Grid.Column>
-                <Grid.Column>
-                <Statistic size='tiny' color='red'>
-                  <Statistic.Label style={{textAlign:'left'}}>Price</Statistic.Label>
-                  <Statistic.Value>60.49</Statistic.Value>
-                </Statistic>
-                </Grid.Column>
+    <div className="cart-container">
+      <h2>Cart</h2>
+      {cart.cartItems.length === 0 ? (
+        <div className="cart-empty">
+          <p>Your cart is currently empty</p>
+          <div className="start-shopping">
+            <Link to="/">
+              <span>Start Shopping</span>
+            </Link>
+          </div>
+        </div>
 
-              </Grid.Row>
-            </Grid>
-          </Segment>
+      ) : (
+        <div>
+          <div className="titles">
+            <h3 className="product-title">Product</h3>
+            <h3 className="price">Price</h3>
+            <h3 className="quantity">Quantity</h3>
+            <h3 className="total">Total</h3>
+          </div>
 
-          <Header as='h3'>History</Header>
-          <Segment color='red'>
-            <Grid columns={3} textAlign='right'>
-              <Grid.Row>
-                <Grid.Column width={10} textAlign='left'>Something</Grid.Column>
-                <Accordion defaultActiveIndex={0} panels={rootPanels} styled/>
+          <div className="cart-items">
+            {cart.cartItems?.map(cartItem => (
+              <div className="cart-item" key={cartItem.id}>
+                <div className="cart-product">
+                  <div>
+                    <h3>{cartItem.name}</h3>
+                    <p>{cartItem.description}</p>
+                    <button>Remove</button>
+                  </div>
+                </div>
+                <div className="cart-product-price">
+                  ${cartItem.price}
+                </div>
+                <div className="cart-product-quantity">
+                  <button>-</button>
+                  <div className="count">{cartItem.cartQuantity}</div>
+                  <button>+</button>
+                </div>
 
-                <Grid.Column width={3} textAlign='right'>$10.00</Grid.Column>
-                <Grid.Column>
-                  <Icon name='edit' bordered/>
-                  <Icon name='trash' bordered/>
-                </Grid.Column>
-              </Grid.Row>
-              </Grid>    
+                <div className="cart-product-total-price">
+                  ${cartItem.price * cartItem.cartQuantity}
+                </div>
 
-        </Segment>
-          {entries.map ((entry) => (
-            <SalonMenuItem
-              key={entry.id}
-              {...entry}
-            />
-          ))}
-        </Container>
-      );
-    }
+              </div>
+            ))}
+          </div>
+          <div className="cart-summary">
+            <button className="clear-cart">Clear Cart</button>
+            <div className="cart-checkout">
+              <div className="subtotal">
+                <span>Subtotal</span>
+                <span className="amount">${cart.cartTotalAmount}</span>
+              </div>
+              <p>taxes calculated at checkout</p>
+              <button>Check out</button>
+              <div className="continue-shopping">
+                <Link to="/">
+                  <span>Continue Shopping</span>
+                </Link>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Cart;
-
-var initialEntries = [
-    {
-        description: "Shellac Manicure",
-        value: "$100.00"
-    },
-    {
-        description: "Shellac Pedicure",
-        value: "$60.00"
-    }
-]
-
