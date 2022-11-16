@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import '../App.css';
-import { addToCart, decreaseCart, removeFromCart } from '../features/cartSlice';
+import { addToCart, clearCart, decreaseCart, getTotals, removeFromCart } from '../features/cartSlice';
 
 
 
@@ -11,6 +12,10 @@ function Cart() {
 
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
 
 
   const handleRemoveFromCart = (cartItem) => {
@@ -23,6 +28,10 @@ function Cart() {
 
   const handleIncreaseCart = (cartItem) => {
     dispatch(addToCart(cartItem));
+  }
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
   }
 
 
@@ -76,7 +85,7 @@ function Cart() {
             ))}
           </div>
           <div className="cart-summary">
-            <button className="clear-cart">Clear Cart</button>
+            <button className="clear-cart" onClick={() => handleClearCart()}>Clear Cart</button>
             <div className="cart-checkout">
               <div className="subtotal">
                 <span>Subtotal</span>

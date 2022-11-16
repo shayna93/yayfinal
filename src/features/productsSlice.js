@@ -15,10 +15,12 @@ export const productsFetch = createAsyncThunk(
             return response?.data
         }
         catch (error) {
-            return rejectWithValue('an error occurred');
+            return rejectWithValue('an error occurred fetching');
         }
     }
 );
+
+
 //a slice is logic containing reducers and actions..
 const productsSlice = createSlice({
     name: "products",
@@ -39,5 +41,7 @@ const productsSlice = createSlice({
         },
     }
 })
+
+
 
 export default productsSlice.reducer
