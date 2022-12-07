@@ -1,9 +1,10 @@
 import React, { Fragment, ReactFragment } from 'react'
-import { Segment, Grid, Icon, Button, Accordion } from 'semantic-ui-react';
+import { Segment, Grid, Icon, Button, Accordion, Container } from 'semantic-ui-react';
 import { useGetAllProductsQuery, useGetAllServicesQuery } from '../features/productsApi';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../features/cartSlice';
+import { configureAddons } from '../features/servicesSlice';
 
 
 
@@ -22,55 +23,32 @@ function groupBy(collection, property) {
 }
 
 function SalonMenuItem({ name, value }) {
+
+
   const { data = [], error, isLoading } = useGetAllServicesQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(data);
+  console.log(`data`,data);
   const service_groups = groupBy(data, 'service_category');
   console.log(service_groups);
-
-
-
-  const level1Panels = [
-    { key: 'panel-1a', title: 'Level 1A', content: 'Level 1A Contents' },
-    { key: 'panel-ba', title: 'Level 1B', content: 'Level 1B Contents' },
-  ]
-
-  const Level1Content = (
-    <div>
-      Welcome to level 1
-      <Accordion.Accordion panels={level1Panels} />
-    </div>
-  )
+  const addons = []
 
   function getLevelContent(group) {
     return group.map((info) => {
+      const addons = info.addons;
+      console.log(`addons`,addons);
       return (
+        <Container onClick={() => handleConfigureAddons(addons)}>
         <div key={info.id}>
-          {info.service}
+          {info.service} {info.time} {info.price}
+          <input type='checkbox'/>
+          <Button onClick={() => handleAddToCart(info)} />
         </div>
+        </Container>
       );
     }
     )
   }
-
-
-  const level2Panels = [
-    { key: 'panel-2a', title: 'Level 2A', content: 'Level 2A Contents' },
-    { key: 'panel-2b', title: 'Level 2B', content: 'Level 2B Contents' },
-  ]
-
-  const Level2Content = (
-    <div>
-      Welcome to level 2
-      <Accordion.Accordion panels={level2Panels} />
-    </div>
-  )
-
-  const rootPanels = [
-    { key: 'panel-1', title: 'Level 1', content: { content: Level1Content } },
-    { key: 'panel-2', title: 'Level 2', content: { content: Level2Content } },
-  ]
 
   let panels = []
   let i = 0;
@@ -81,9 +59,17 @@ function SalonMenuItem({ name, value }) {
     })
   }
   const handleAddToCart = (service) => {
+    console.log(`hi`,service);
     dispatch(addToCart(service));
     navigate("/cart");
+  
   };
+
+  const handleConfigureAddons = (addons) => {
+    console.log(`addon234`, addons);
+    dispatch(configureAddons(addons));
+    navigate("/addons");
+  }
 
   return (
     <div className="menu-item-container">
@@ -92,36 +78,9 @@ function SalonMenuItem({ name, value }) {
       ) : error ? (
         <p>An error occurred..</p>
       ) : (
-        <Fragment>
-          <Segment>
-            <Grid columns={3} textAlign="right">
-              {service_groups.map((u, i) => {
-                return (
-                  <Grid.Row key={i}>
-                    <Grid.Column width={10} textAlign="left">
-                      {u[0].service_category}
-                    </Grid.Column>
-                    <Grid.Column width={3} textAlign="right">
-                      10
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                      <Button onClick={() => handleAddToCart(u)}>
-                        Add to Cart
-                      </Button>
-                      <Icon name='cart' bordered />
-                    </Grid.Column>
-                  </Grid.Row>
-
-                );
-              }
-
-              )}
-            </Grid>
+       
             <Accordion defaultActiveIndex={0} panels={panels} styled />
 
-
-          </Segment>
-        </Fragment>
       )}
     </div>
   );

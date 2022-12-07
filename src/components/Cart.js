@@ -63,8 +63,8 @@ function Cart() {
               <div className="cart-item" key={cartItem.id}>
                 <div className="cart-product">
                   <div>
-                    <h3>{cartItem.name}</h3>
-                    <p>{cartItem.description}</p>
+                    <h3>{cartItem.service}</h3>
+                    <p>{cartItem.service}</p>
                     <button onClick={() => handleRemoveFromCart(cartItem)}>Remove</button>
                   </div>
                 </div>

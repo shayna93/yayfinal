@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import NavBar from './components/NavBar';
 import SalonMenu from './components/SalonMenu';
 import NotFound from './components/NotFound';
+import Addons from './components/Addons';
 
 
 function App() {
@@ -21,6 +22,10 @@ function App() {
       <NavBar/>
       <Routes>
         <Route path='/cart' exact element={<Cart/>}/>
+        <Route path='/addons' exact element= {<Addons/>}/>
+        <Route path='/salonmenu' exact element= {<SalonMenu/>}/>
+
+
         <Route path='/not-found' element={<NotFound/>}/>
         <Route exact path='/' element={<SalonMenu/>}/>
         <Route path="*" element= {<Navigate to="/" replace />} />

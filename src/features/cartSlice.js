@@ -11,17 +11,19 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action) {
+            console.log(`payload`,action.payload);
 
             const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
+         
             if (itemIndex >= 0) {
                 state.cartItems[itemIndex].cartQuantity += 1
-                toast.info(`Increased ${state.cartItems[itemIndex].name} product quantity`, {
+                toast.info(`Increased ${state.cartItems[itemIndex].service} product quantity`, {
                     position: "bottom-left"
                 })
             } else {
                 const tempProduct = { ...action.payload, cartQuantity: 1 }
                 state.cartItems.push(tempProduct);
-                toast.success(`${action.payload.name} added to cart`, {
+                toast.success(`${action.payload.service} added to cart`, {
                     position: "bottom-center",
                 });
 
@@ -38,7 +40,7 @@ const cartSlice = createSlice({
 
             state.cartItems = nextCartItems;
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-            toast.error(`${action.payload.name} removed from cart`, {
+            toast.error(`${action.payload.service} removed from cart`, {
                 position: "bottom-center",
             });
         },
@@ -50,7 +52,7 @@ const cartSlice = createSlice({
 
             if (state.cartItems[itemIndex].cartQuantity > 1) {
                 state.cartItems[itemIndex].cartQuantity -= 1
-                toast.info(`decreased ${action.payload.name} cart quantity`, {
+                toast.info(`decreased ${action.payload.service} cart quantity`, {
                     position: "bottom-center",
                 });
             } else if (state.cartItems[itemIndex].cartQuantity === 1) {
@@ -59,7 +61,7 @@ const cartSlice = createSlice({
                 );
 
                 state.cartItems = nextCartItems;
-                toast.error(`${action.payload.name} removed from cart`, {
+                toast.error(`${action.payload.service} removed from cart`, {
                     position: "bottom-center",
                 });
 
