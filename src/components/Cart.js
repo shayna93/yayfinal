@@ -11,6 +11,7 @@ import { addToCart, clearCart, decreaseCart, getTotals, removeFromCart } from '.
 function Cart() {
 
   const cart = useSelector((state) => state.cart);
+  console.log(`cart`, cart)
   const dispatch = useDispatch();
   
   useEffect(() => {

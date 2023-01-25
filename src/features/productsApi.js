@@ -11,6 +11,8 @@ export const productsApi = createApi({
         getAllServices: builder.query({
             query: () => "services",
         }),
+
+       
     }),
 });
 

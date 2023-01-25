@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
     items: [],
+    addons: [],
     status: null,
     error: null,
 };
@@ -29,14 +30,16 @@ const servicesSlice = createSlice({
     reducers: {
         configureAddons(state, action) {
             console.log(`payload2`,action.payload);
-            const itemAddons = action.payload;
+            const itemAddons = action.payload.addons;
             console.log(`itemAddons`, itemAddons);
             //const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
             
             if (typeof action.payload !== "undefined" && action.payload !== null) {
                 //state.cartItems[itemIndex].cartQuantity += 1
-                state.items.push(itemAddons);
-                toast.info(`this product has addons ${action.payload}`, {
+                //const tempProduct = itemAddons
+                //console.log(`temp`,tempProduct)
+                state.addons.push(...itemAddons);
+                toast.info(`this product has addons ${itemAddons}`, {
                     position: "bottom-left"
                 })
             } else {

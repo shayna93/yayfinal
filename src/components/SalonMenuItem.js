@@ -36,15 +36,16 @@ function SalonMenuItem({ name, value }) {
   function getLevelContent(group) {
     return group.map((info) => {
       const addons = info.addons;
-      console.log(`addons`,addons);
       return (
-        <Container onClick={() => handleConfigureAddons(addons)}>
         <div key={info.id}>
+
+        <Container onClick={() => handleConfigureAddons(info)}>
           {info.service} {info.time} {info.price}
           <input type='checkbox'/>
           <Button onClick={() => handleAddToCart(info)} />
-        </div>
+        
         </Container>
+        </div>
       );
     }
     )
