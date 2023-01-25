@@ -39,7 +39,7 @@ function SalonMenuItem({ name, value }) {
       return (
         <div key={info.id}>
 
-        <Container onClick={() => handleConfigureAddons(info)}>
+        <Container onClick={() => { handleConfigureAddons(info); handleAddToCart(info);}}>
           {info.service} {info.time} {info.price}
           <input type='checkbox'/>
           <Button onClick={() => handleAddToCart(info)} />
@@ -62,7 +62,7 @@ function SalonMenuItem({ name, value }) {
   const handleAddToCart = (service) => {
     console.log(`hi`,service);
     dispatch(addToCart(service));
-    navigate("/cart");
+    navigate("/addons");
   
   };
 

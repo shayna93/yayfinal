@@ -54,8 +54,9 @@ const servicesSlice = createSlice({
             localStorage.setItem("addons", JSON.stringify(itemAddons));
 
         },
+        
 
-    },
+        
     extraReducers: {
         //immer updates the state in unmutable way
         [servicesFetch.pending]: (state, action) => {
@@ -70,7 +71,7 @@ const servicesSlice = createSlice({
             state.error = action.payload;
         },
     }
-})
+}})
 export const { configureAddons } = servicesSlice.actions;
 
 export default servicesSlice.reducer;

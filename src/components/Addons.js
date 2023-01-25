@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, Fragment } from 'react';
+import { useEffect, Fragment, useState } from 'react';
 import { Segment, Grid, Icon, Button, Accordion, Container } from 'semantic-ui-react';
 import { useGetAllProductsQuery, useGetAllServicesQuery } from '../features/productsApi';
 
@@ -21,28 +21,17 @@ function groupBy(collection, property) {
   return result;
 }
 
-function getLevelContent(group) {
-  return group.map((info) => {
-    const addons = info.addons;
-    return (
-      <div key={info.id}>
 
-        <Container>
-          {info.category} {info.name} {info.price}
-          <input type='checkbox' />
-          <Button />
-
-        </Container>
-      </div>
-    );
-  }
-  )
-}
 
 
 
 function Addons() {
   const { data = [], error, isLoading } = useGetAllServicesQuery();
+  const [selection, setSelection] = useState([]);
+  const dispatch = useDispatch();
+
+
+
 
   const navigate = useNavigate();
   const addons = useSelector((state) => state.services);
@@ -51,6 +40,36 @@ function Addons() {
   const addon_groups = groupBy(addons.addons, 'category');
 
   console.log(addon_groups);
+
+  const addOrRemove = (name) => {
+    const newSelection = [...addons];
+    const index = newSelection.indexOf(name);
+    if (index === -1) {
+      newSelection.push(name);
+    } else {
+      newSelection.splice(index, 1);
+    }
+    setSelection(newSelection);
+    console.log(addons)
+  }
+
+  function getLevelContent(group) {
+    return group.map((info) => {
+      const addons = info.addons;
+      return (
+        <div key={info.id}>
+  
+          <Container>
+            {info.category} {info.name} {info.price}
+            <input type='checkbox' />
+            <Button onClick={() => handleAddToCart(info)} />
+  
+          </Container>
+        </div>
+      );
+    }
+    )
+  }
 
 
   let panels = []
@@ -61,6 +80,14 @@ function Addons() {
       content: getLevelContent(addon_groups[i])
     })
   }
+
+  const handleAddToCart = (service) => {
+    console.log(`hi`,service);
+    dispatch(addToCart(service));
+    navigate("/cart");
+  
+  };
+  
 
 
 
