@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, Fragment, useState } from 'react';
 import { Segment, Grid, Icon, Button, Accordion, Container } from 'semantic-ui-react';
-import { useGetAllProductsQuery, useGetAllServicesQuery } from '../features/productsApi';
+import { useGetAllProductsQuery, useGetAllServicesQuery, useGetAllAddonsQuery } from '../features/productsApi';
 
 import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';

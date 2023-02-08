@@ -12,8 +12,12 @@ export const productsApi = createApi({
             query: () => "services",
         }),
 
+        getAllAddons: builder.query({
+            query: (serviceid) => `addons/${serviceid}`,
+        }),
+
        
     }),
 });
 
-export const { useGetAllProductsQuery, useGetAllServicesQuery } = productsApi
+export const { useGetAllProductsQuery, useGetAllServicesQuery, useGetAllAddonsQuery } = productsApi

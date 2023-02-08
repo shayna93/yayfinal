@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 
 
 const initialState = {
-    items: [],
+    selectedAddons: [],
+    serviceid: null,
     addons: [],
     status: null,
     error: null,
@@ -24,6 +25,15 @@ export const servicesFetch = createAsyncThunk(
     }
 );
 
+// export const addonsFetch = createAsyncThunk(
+//     "services/addonsFetch",
+//     async (id = null, {rejectWithValue}) => {
+//         try {
+//             const response = await axios.get("http://localhost:5000/services/")
+//         }
+//     }
+// )
+
 const servicesSlice = createSlice({
     name: "services",
     initialState,
@@ -32,6 +42,7 @@ const servicesSlice = createSlice({
             console.log(`payload2`,action.payload);
             const itemAddons = action.payload.addons;
             console.log(`itemAddons`, itemAddons);
+            const itemIndex = state.addons.findIndex(addon => addon.id === action.payload.id)
             //const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
             
             if (typeof action.payload !== "undefined" && action.payload !== null) {
@@ -51,7 +62,7 @@ const servicesSlice = createSlice({
 
             }
 
-            localStorage.setItem("addons", JSON.stringify(itemAddons));
+           // localStorage.setItem("addons", JSON.stringify(itemAddons));
 
         },
         
@@ -72,6 +83,6 @@ const servicesSlice = createSlice({
         },
     }
 }})
-export const { configureAddons } = servicesSlice.actions;
+export const { configureAddons, getServiceId } = servicesSlice.actions;
 
 export default servicesSlice.reducer;

@@ -1,11 +1,10 @@
-import React, { Fragment, ReactFragment } from 'react'
+import React, { Fragment, ReactFragment, useState } from 'react'
 import { Segment, Grid, Icon, Button, Accordion, Container } from 'semantic-ui-react';
 import { useGetAllProductsQuery, useGetAllServicesQuery } from '../features/productsApi';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../features/cartSlice';
 import { configureAddons } from '../features/servicesSlice';
-
 
 
 function groupBy(collection, property) {
@@ -23,6 +22,11 @@ function groupBy(collection, property) {
 }
 
 function SalonMenuItem({ name, value }) {
+  const [serviceid, setServiceid] = useState(null);
+  const handleSelection = (item) => {
+    setServiceid(item);
+  }
+
 
 
   const { data = [], error, isLoading } = useGetAllServicesQuery();
@@ -34,12 +38,13 @@ function SalonMenuItem({ name, value }) {
   const addons = []
 
   function getLevelContent(group) {
+
     return group.map((info) => {
       const addons = info.addons;
       return (
         <div key={info.id}>
 
-        <Container onClick={() => { handleConfigureAddons(info); handleAddToCart(info);}}>
+        <Container onClick={(event) => { handleSelection(info.id); handleConfigureAddons(info); handleAddToCart(info);}}>
           {info.service} {info.time} {info.price}
           <input type='checkbox'/>
           <Button onClick={() => handleAddToCart(info)} />
