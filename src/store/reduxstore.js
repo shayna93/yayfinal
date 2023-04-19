@@ -1,6 +1,18 @@
 import { createStore } from 'redux'
-const store = createStore(selected, ['Use Redux'])
+import { configureStore, createReducer } from '@reduxjs/toolkit';
+import accordionReducer from '../features/accordionSlice';
+import cartReducer from '../features/cartSlice';
+import servicesReducer from './features/servicesSlice';
+import productsReducer from './features/productsSlice';
 
+export default configureStore({
+  reducer: {
+    accordion: accordionReducer,
+    cart: cartReducer,
+    services: servicesReducer,
+    products: productsReducer,
+  },
+});
 function getserviceid(state = [], action) {
   switch (action.type) {
     case 'GET_SERVICE_ID':
@@ -10,12 +22,12 @@ function getserviceid(state = [], action) {
   }
 }
 
-store.dispatch({
-  type: 'ADD_TODO',
-  text: 'Read the docs'
-})
+// store.dispatch({
+//   type: 'ADD_TODO',
+//   text: 'Read the docs'
+// })
 
-console.log(store.getState())
+//console.log(store.getState())
 // [ 'Use Redux', 'Read the docs' ]
 
 function addTodo(text) {
@@ -25,5 +37,5 @@ function addTodo(text) {
   }
 }
 
-store.dispatch(addTodo('Read the docs'))
-store.dispatch(addTodo('Read about the middleware'))
+//store.dispatch(addTodo('Read the docs'))
+//store.dispatch(addTodo('Read about the middleware'))

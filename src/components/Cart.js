@@ -60,31 +60,42 @@ function Cart() {
           </div>
 
           <div className="cart-items">
-            {cart.cartItems?.map(cartItem => (
-              <div className="cart-item" key={cartItem.id}>
-                <div className="cart-product">
-                  <div>
-                    <h3>{cartItem.service}</h3>
-                    <p>{cartItem.service}</p>
-                    <button onClick={() => handleRemoveFromCart(cartItem)}>Remove</button>
-                  </div>
-                </div>
-                <div className="cart-product-price">
-                  ${cartItem.price}
-                </div>
-                <div className="cart-product-quantity">
-                  <button onClick={() => handleDecreaseCart(cartItem)}>-</button>
-                  <div className="count">{cartItem.cartQuantity}</div>
-                  <button onClick={() => handleIncreaseCart(cartItem)}>+</button>
-                </div>
+  {cart.cartItems?.map((cartItem) => (
+    <div className="cart-item" key={cartItem.id}>
+      <div className="cart-product">
+        <div>
+          <h3>{cartItem.service}</h3>
+          <p>{cartItem.service}</p>
+          <button onClick={() => handleRemoveFromCart(cartItem)}>Remove</button>
+        </div>
+      </div>
+      <div className="cart-product-price">${cartItem.price}</div>
+      <div className="cart-product-quantity">
+        <button onClick={() => handleDecreaseCart(cartItem)}>-</button>
+        <div className="count">{cartItem.cartQuantity}</div>
+        <button onClick={() => handleIncreaseCart(cartItem)}>+</button>
+      </div>
+      <div className="cart-product-total-price">
+        ${cartItem.price * cartItem.cartQuantity}
+      </div>
 
-                <div className="cart-product-total-price">
-                  ${cartItem.price * cartItem.cartQuantity}
-                </div>
-
-              </div>
+      {/* Add this section to display the add-ons */}
+      {cartItem.addons.length > 0 && (
+        <div className="cart-item-addons">
+          <h4>Add-ons:</h4>
+          <ul>
+            {cartItem.addons.map((addon) => (
+              <li key={addon.id}>
+                {addon.name} - ${addon.price}
+              </li>
             ))}
-          </div>
+          </ul>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
           <div className="cart-summary">
             <button className="clear-cart" onClick={() => handleClearCart()}>Clear Cart</button>
             <div className="cart-checkout">

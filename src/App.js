@@ -12,6 +12,10 @@ import NavBar from './components/NavBar';
 import SalonMenu from './components/SalonMenu';
 import NotFound from './components/NotFound';
 import Addons from './components/Addons';
+//import store from './store/reduxstore';
+import { Provider } from 'react-redux';
+import Configure from './screens/Configure';
+
 
 
 function App() {
@@ -21,6 +25,7 @@ function App() {
       <ToastContainer/>
       <NavBar/>
       <Routes>
+        <Route path='/configure/:itemID' element ={<Configure/>}/>
         <Route path='/cart' exact element={<Cart/>}/>
         <Route path='/addons' exact element= {<Addons/>}/>
         <Route path='/salonmenu' exact element= {<SalonMenu/>}/>
@@ -39,4 +44,3 @@ function App() {
 
  
  export default App;
- 

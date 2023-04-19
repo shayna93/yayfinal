@@ -218,3 +218,14 @@
 .continue-shopping a span, .start-shopping a span{
   margin-left: 0.5rem;
 }
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  padding: 0 10px;
+}
+
+.accordion-content.open {
+  max-height: 300px; /* Adjust this value to fit your content */
+  padding: 10px;
+}

@@ -11,10 +11,13 @@ import productsReducer, { productsFetch } from './features/productsSlice';
 import servicesReducer, { servicesFetch } from './features/servicesSlice';
 import { productsApi } from './features/productsApi';
 import cartReducer, { getTotals } from './features/cartSlice';
+import accordionReducer from './features/accordionSlice';
+
 
 const store = configureStore({
   reducer: {
     products: productsReducer,
+    accordion: accordionReducer,
     services: servicesReducer,
     cart: cartReducer, 
     [productsApi.reducerPath]: productsApi.reducer,

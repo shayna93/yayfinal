@@ -5,6 +5,7 @@ import SalonMenuItem from './SalonMenuItem'
 import '../App.css';
 import { useGetAllProductsQuery } from '../features/productsApi';
 import { useSelector } from 'react-redux';
+import AccordionMenu from './AccordionMenu';
 
 
 
@@ -14,7 +15,7 @@ function SalonMenu() {
   return ( 
     <Container>
       <Header as='h1'>Menu</Header>
-        <SalonMenuItem/>
+        <AccordionMenu/>
     </Container>
   );
 }

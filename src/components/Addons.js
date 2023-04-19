@@ -25,7 +25,7 @@ function groupBy(collection, property) {
 
 
 
-function Addons() {
+function Addons({handleSelection}) {
   const { data = [], error, isLoading } = useGetAllServicesQuery();
   const [selection, setSelection] = useState([]);
   const dispatch = useDispatch();

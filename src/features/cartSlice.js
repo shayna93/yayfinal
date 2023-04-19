@@ -11,27 +11,32 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action) {
-            console.log(`payload`,action.payload);
-
-            const itemIndex = state.cartItems.findIndex(item => item.id === action.payload.id);
-         
+            console.log(`payload`, action.payload);
+          
+            const itemIndex = state.cartItems.findIndex(
+              (item) => item.id === action.payload.id
+            );
+          
             if (itemIndex >= 0) {
-                state.cartItems[itemIndex].cartQuantity += 1
-                toast.info(`Increased ${state.cartItems[itemIndex].service} product quantity`, {
-                    position: "bottom-left"
-                })
+              state.cartItems[itemIndex].cartQuantity += 1;
+              toast.info(`Increased ${state.cartItems[itemIndex].service} product quantity`, {
+                position: "bottom-left",
+              });
             } else {
-                const tempProduct = { ...action.payload, cartQuantity: 1 }
-                state.cartItems.push(tempProduct);
-                toast.success(`${action.payload.service} added to cart`, {
-                    position: "bottom-center",
-                });
-
+              const tempProduct = {
+                ...action.payload,
+                cartQuantity: 1,
+                addons: action.payload.addons || [],
+              };
+              state.cartItems.push(tempProduct);
+              toast.success(`${action.payload.service} added to cart`, {
+                position: "bottom-center",
+              });
             }
-
+          
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-
-        },
+          },
+          
 
         removeFromCart(state, action) {
             const nextCartItems = state.cartItems.filter(
